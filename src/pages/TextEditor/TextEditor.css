@@ -1,0 +1,117 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.others {
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+    margin: 60px 30px 60px 50px;
+    height: 60vh;
+    position: sticky;
+    top:40px;
+}
+
+.docInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.docInfo > button {
+    padding: 1rem 0.5rem;
+    border-radius: 0.5rem;
+    border:none;
+    background: 1px solid rgb(93, 88, 88);
+    width: 15rem;
+    cursor: pointer;
+    font-size: medium;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.users {
+    width: 15vw;
+    min-width: 15vw;
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    overflow-y: scroll;
+    background-color: white;
+}
+
+.users > h2 {
+    margin: unset;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    text-align: center;
+    background-color: rgb(57, 108, 171);
+    color: white;
+    position: sticky;
+    top:0px;
+}
+
+.users > div {
+    text-align: center;
+    padding-bottom: 0.5rem;
+}
+
+.users > div > p {
+    margin-bottom: 1rem;
+}
+
+.editorContainer {
+    flex: 1;
+}
+
+.editorContainer .ql-editor {
+    width: 8.5in;
+    min-height: 11in;
+    margin:  1rem;
+    padding: 1rem;
+    box-shadow: 0 0 1px 0 rgba(62, 62, 62);
+    background-color: white;
+}
+
+.editorContainer .ql-container {
+    border: none;
+    display: flex;
+    justify-content: center;
+}
+
+.editorContainer .ql-toolbar {
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: rgb(245, 245, 245);
+    box-shadow: 0 0 1px 0 rgba(62, 62, 62);
+}
+
+@page {
+    margin: 1in;
+}
+
+@media print{
+    .container {
+        background-color: none;
+    }
+    .others {
+        display: none;
+    }
+    .editorContainer .ql-editor{
+        width: 6.5in;
+        height: 9in;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+    }
+    .editorContainer > .ql-toolbar{
+        display: none;
+    }
+}
