@@ -8,6 +8,7 @@ import { io } from 'socket.io-client';
 const Home = () => {
   const [ userName, setUserName ] = useState('');
   const [ docId, setDocId ] = useState('');
+  const [ loading, setLoading ] = useState(false);
   const [ shouldGenerateDocId, setShouldGenerateDocId ] = useState(false);
   const [ errors , setErrors ] = useState({
     username:'',
@@ -63,6 +64,7 @@ const Home = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     const err = {
       username: '',
       docId: '',
@@ -79,6 +81,7 @@ const Home = () => {
     }
     const s = io.connect(process.env.REACT_APP_SERVER)
     s.on('connect', ()=> {
+      setLoading(false);
       navigate(`/d/${docId}`);
       setUser(userName, s);
     })
@@ -120,23 +123,29 @@ const Home = () => {
           }
           {errors.docId !== '' && <p className={styles.errors}>{errors.docId}</p> }
         </div>
-        
-        <button 
-          className={`${styles.submit} ${(!!errors.username || !!errors.docId || !userName || !docId) ? '' : styles.correct}`} 
-          type='submit' 
-          onClick={handleSubmit}
-          disabled={(!!errors.username || !!errors.docId || !userName || !docId)}
-        >
-          Submit
-        </button>
-        { 
-          !shouldGenerateDocId ? 
-          <button onClick={() => handleDocChoice('Create a new Document')}> 
-            Create a new Document
+        {
+          !loading ?
+          <button 
+            className={styles.submit} 
+            type='submit' 
+            onClick={handleSubmit}
+            disabled={(!!errors.username || !!errors.docId || !userName || !docId )}
+          >
+            Submit
           </button> :
-          <button onClick={() => handleDocChoice('Have a Document Id')}> 
-            Have a Document Id
-          </button>
+          <h3>Loading</h3>
+        }
+        { 
+          !loading &&
+            (
+              !shouldGenerateDocId ? 
+              <button onClick={() => handleDocChoice('Create a new Document')}> 
+                Create a new Document
+              </button> :
+              <button onClick={() => handleDocChoice('Have a Document Id')}> 
+                Have a Document Id
+              </button> 
+            )
         }
       </div>
     </div>
